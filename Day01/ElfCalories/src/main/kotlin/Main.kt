@@ -9,9 +9,11 @@ fun main() {
     println("Number of elves: " + elves.count())
     println("Total amount of calories of all elves: " + elves.sumOf { it.calorieCount})
     println("Max amount of calories of a single elf: " + elves.maxBy { it.calorieCount }.calorieCount)
+
+    println("Top 3 elves: " + getTopElvesCalories(allElvesCalorieInventories))
 }
 
-private fun getElves(allElvesCalorieInventories: List<String>): MutableList<Elf> {
+fun getElves(allElvesCalorieInventories: List<String>): MutableList<Elf> {
     val elves = mutableListOf<Elf>()
     var elfCount = 1
     var currentElf = Elf(elfCount)
@@ -22,8 +24,9 @@ private fun getElves(allElvesCalorieInventories: List<String>): MutableList<Elf>
             currentElf = Elf(elfCount)
             continue
         }
-        currentElf.addToInventory(item.toLong())
+        currentElf.addToInventory(item.trim().toLong())
     }
+    elves.add(currentElf)
     return elves
 }
 
@@ -36,4 +39,21 @@ class Elf(elfNumber: Number)  {
     fun addToInventory(calories: Long){
         calorieCount += calories
     }
+}
+
+
+
+fun getTopElvesCalories(caloriesList: String): Long {
+    val caloriesLines = caloriesList.lines()
+
+    return getTopElvesCalories(caloriesLines)
+}
+
+fun getTopElvesCalories(caloriesLines: List<String>): Long {
+
+    val elves = getElves(caloriesLines)
+
+    val sortedElves = elves.sortedByDescending { it.calorieCount }
+
+    return sortedElves.take(3).sumOf { it.calorieCount }
 }

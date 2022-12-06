@@ -20,15 +20,15 @@ class ElvesTests {
 
     @Test
     fun given_inventory_registry_it_is_processed_to_obtain_each_elf_inventories() {
-        val elfInventoryList = getElves(caloriesList)
+        val calorieInventory = CalorieInventory(caloriesList)
 
-        assertEquals(5, elfInventoryList.size)
+        assertEquals(5, calorieInventory.getElfInventories().size)
     }
 
     @Test
     fun calculate_top_elves_calories() {
-        val topElvesCalories = getTopElvesCalories(caloriesList)
+        val calorieInventory = CalorieInventory(caloriesList)
 
-        assertEquals(45000, topElvesCalories)
+        assertEquals(45000, calorieInventory.getTopElvesCalories(3))
     }
 }

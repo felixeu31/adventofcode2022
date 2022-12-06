@@ -3,7 +3,7 @@ import kotlin.test.assertEquals
 
 class ElvesTests {
 
-    val caloriesList = """1000
+    private val caloriesList = """1000
         2000
         3000
 
@@ -20,19 +20,15 @@ class ElvesTests {
 
     @Test
     fun given_inventory_registry_it_is_processed_to_obtain_each_elf_inventories() {
-
-        val elfInventories = mutableListOf<Elf>()
-
         val elfInventoryList = getElves(caloriesList)
 
         assertEquals(5, elfInventoryList.size)
     }
 
     @Test
-    fun testname() {
+    fun calculate_top_elves_calories() {
+        val topElvesCalories = getTopElvesCalories(caloriesList)
 
-
-
-        assertEquals(45000, getTopElvesCalories(caloriesList))
+        assertEquals(45000, topElvesCalories)
     }
 }

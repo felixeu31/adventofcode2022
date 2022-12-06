@@ -1,9 +1,6 @@
 import java.io.File
 
 fun main() {
-
-    val allElvesCalorieInventories = readFileAsLinesUsingReadLines("./input.txt")
-
     val inventoryPlainText = File("./input.txt").readText()
     val elves = getElves(inventoryPlainText)
 
@@ -16,13 +13,11 @@ fun main() {
 
 fun getElves(inventoryPlainText: String): MutableList<Elf> {
     val elves = mutableListOf<Elf>()
-    var elfCount = 1
-    var currentElf = Elf(elfCount)
+    var currentElf = Elf()
     for (item in inventoryPlainText.lines()) {
         if (item == "") {
             elves.add(currentElf)
-            elfCount++
-            currentElf = Elf(elfCount)
+            currentElf = Elf()
             continue
         }
         currentElf.addToInventory(item.trim().toLong())
@@ -31,10 +26,7 @@ fun getElves(inventoryPlainText: String): MutableList<Elf> {
     return elves
 }
 
-fun readFileAsLinesUsingReadLines(fileName: String): List<String>
-        = File(fileName).readLines()
-
-class Elf(elfNumber: Number)  {
+class Elf()  {
     var calorieCount: Long = 0
 
     fun addToInventory(calories: Long){

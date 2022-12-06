@@ -4,20 +4,21 @@ fun main() {
 
     val allElvesCalorieInventories = readFileAsLinesUsingReadLines("./input.txt")
 
-    val elves = getElves(allElvesCalorieInventories)
+    val inventoryPlainText = File("./input.txt").readText()
+    val elves = getElves(inventoryPlainText)
 
     println("Number of elves: " + elves.count())
     println("Total amount of calories of all elves: " + elves.sumOf { it.calorieCount})
     println("Max amount of calories of a single elf: " + elves.maxBy { it.calorieCount }.calorieCount)
 
-    println("Top 3 elves: " + getTopElvesCalories(allElvesCalorieInventories))
+    println("Top 3 elves: " + getTopElvesCalories(inventoryPlainText))
 }
 
-fun getElves(allElvesCalorieInventories: List<String>): MutableList<Elf> {
+fun getElves(inventoryPlainText: String): MutableList<Elf> {
     val elves = mutableListOf<Elf>()
     var elfCount = 1
     var currentElf = Elf(elfCount)
-    for (item in allElvesCalorieInventories) {
+    for (item in inventoryPlainText.lines()) {
         if (item == "") {
             elves.add(currentElf)
             elfCount++
@@ -44,14 +45,8 @@ class Elf(elfNumber: Number)  {
 
 
 fun getTopElvesCalories(caloriesList: String): Long {
-    val caloriesLines = caloriesList.lines()
 
-    return getTopElvesCalories(caloriesLines)
-}
-
-fun getTopElvesCalories(caloriesLines: List<String>): Long {
-
-    val elves = getElves(caloriesLines)
+    val elves = getElves(caloriesList)
 
     val sortedElves = elves.sortedByDescending { it.calorieCount }
 
